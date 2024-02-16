@@ -5,6 +5,7 @@ import { api } from "~/utils/api";
 
 export default function Home() {
   const hello = api.post.hello.useQuery({ text: "from tRPC" });
+  const { data: posts } = api.post.getLatest.useQuery();
 
   return (
     <>
@@ -45,6 +46,18 @@ export default function Home() {
           <p className="text-2xl text-white">
             {hello.data ? hello.data.greeting : "Loading tRPC query..."}
           </p>
+         
+            <p className="text-white">post</p>
+            {posts ? (
+              posts.map((post) => (
+                <div key={post.id}>
+                  <h2>{post.name}</h2>
+                </div>
+              ))
+            ) : (
+              <p>No posts...</p>
+            )}
+         
         </div>
       </main>
     </>
