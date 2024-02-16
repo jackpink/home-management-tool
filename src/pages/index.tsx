@@ -1,11 +1,13 @@
 import Head from "next/head";
 import Link from "next/link";
-
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { api } from "~/utils/api";
+import { Sign } from "crypto";
 
 export default function Home() {
   const hello = api.post.hello.useQuery({ text: "from tRPC" });
   const { data: posts } = api.post.getLatest.useQuery();
+
 
   return (
     <>
@@ -43,6 +45,10 @@ export default function Home() {
               </div>
             </Link>
           </div>
+
+          
+          <SignedIn>
+            <UserButton afterSignOutUrl="/" />
           <p className="text-2xl text-white">
             {hello.data ? hello.data.greeting : "Loading tRPC query..."}
           </p>
@@ -54,9 +60,19 @@ export default function Home() {
                   <h2>{post.name}</h2>
                 </div>
               ))
+              
             ) : (
+              
               <p>No posts...</p>
             )}
+          </SignedIn>
+          <SignedOut>
+             <SignInButton />
+        
+                      <p className="text-white">Please sign in to see posts</p>
+        </SignedOut> 
+
+
          
         </div>
       </main>
