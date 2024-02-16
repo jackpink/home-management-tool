@@ -5,7 +5,7 @@ import { env } from "~/env";
 import * as schema from "./schema";
 
 export const db = drizzle(
-  new Client({
+    new Client({
     url: env.DATABASE_URL,
   }).connection(),
   { schema }

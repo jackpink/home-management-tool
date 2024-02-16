@@ -8,7 +8,6 @@ export default function Home() {
   const hello = api.post.hello.useQuery({ text: "from tRPC" });
   const { data: posts } = api.post.getLatest.useQuery();
 
-
   return (
     <>
       <Head>
@@ -46,13 +45,12 @@ export default function Home() {
             </Link>
           </div>
 
-          
           <SignedIn>
             <UserButton afterSignOutUrl="/" />
-          <p className="text-2xl text-white">
-            {hello.data ? hello.data.greeting : "Loading tRPC query..."}
-          </p>
-         
+            <p className="text-2xl text-white">
+              {hello.data ? hello.data.greeting : "Loading tRPC query..."}
+            </p>
+
             <p className="text-white">post</p>
             {posts ? (
               posts.map((post) => (
@@ -60,20 +58,15 @@ export default function Home() {
                   <h2>{post.name}</h2>
                 </div>
               ))
-              
             ) : (
-              
               <p>No posts...</p>
             )}
           </SignedIn>
           <SignedOut>
-             <SignInButton />
-        
-                      <p className="text-white">Please sign in to see posts</p>
-        </SignedOut> 
+            <SignInButton />
 
-
-         
+            <p className="p-1 text-white">Please sign in to see posts</p>
+          </SignedOut>
         </div>
       </main>
     </>
